@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weekly_flutter_challenge_4_weather_app/styleguide.dart';
+
+import '../styleguide.dart';
 
 class WeekTable extends StatelessWidget {
   @override
@@ -54,7 +55,7 @@ class WeekTable extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 245,
+          bottom: 262,
           left: 35,
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
@@ -103,7 +104,7 @@ class DayRow extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 13.0),
+      padding: const EdgeInsets.symmetric(vertical: 15.0),
       child: Row(
         children: <Widget>[
           SizedBox(

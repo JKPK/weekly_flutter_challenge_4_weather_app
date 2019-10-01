@@ -23,8 +23,8 @@ class TopBar extends StatelessWidget {
             children: <Widget>[
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 5),
-                width: MediaQuery.of(context).size.width * .03,
-                height: MediaQuery.of(context).size.width * .03,
+                width: MediaQuery.of(context).size.width * .025,
+                height: MediaQuery.of(context).size.width * .025,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.white,
