@@ -19,15 +19,15 @@ class DaySummary extends StatelessWidget {
             ),
             SizedBox(height: 15),
             Text(
-              "Rainy, Sunday",
+              "Sunny, Sunday",
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 25,
+                fontSize: 23,
               ),
             ),
             SizedBox(height: 10),
             Text(
-              " 11°",
+              " 16°",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 90,

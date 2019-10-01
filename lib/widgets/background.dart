@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weekly_flutter_challenge_4_weather_app/styleguide.dart';
+
+import '../styleguide.dart';
 
 class Background extends StatelessWidget {
   @override
@@ -10,15 +11,15 @@ class Background extends StatelessWidget {
           height: MediaQuery.of(context).size.height * .6,
           child: Image(
             fit: BoxFit.cover,
-            image: AssetImage('assets/images/paris.jpg'),
+            image: AssetImage('assets/images/cairo.jpg'),
           ),
         ),
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                parisColor.withOpacity(0.5),
-                Colors.black.withOpacity(0.5),
+                cairoColor.withOpacity(0.7),
+                Colors.black.withOpacity(0.7),
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -33,7 +34,7 @@ class Background extends StatelessWidget {
               height: MediaQuery.of(context).size.height * .57,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Color(0xFFFAFAFA),
               ),
             ),
           ),

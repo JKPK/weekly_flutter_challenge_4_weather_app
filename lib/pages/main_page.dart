@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:weekly_flutter_challenge_4_weather_app/widgets/day_summary.dart';
-import 'package:weekly_flutter_challenge_4_weather_app/widgets/temperature_summary.dart';
-import 'package:weekly_flutter_challenge_4_weather_app/widgets/top_bar.dart';
 
 import '../widgets/background.dart';
 import '../widgets/notification_button.dart';
+import '../widgets/day_summary.dart';
+import '../widgets/temperature_summary.dart';
+import '../widgets/top_bar.dart';
+import '../widgets/week_table.dart';
 
 class MainPage extends StatelessWidget {
-  const MainPage({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +18,7 @@ class MainPage extends StatelessWidget {
           DaySummary(),
           TemperatureSummary(),
           NotificationButton(),
+          WeekTable(),
         ],
       ),
     );

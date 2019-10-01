@@ -18,6 +18,13 @@ class NotificationButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: parisColor,
           shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 6,
+              offset: Offset(0, 6),
+            ),
+          ],
         ),
         child: Transform.rotate(
           angle: -math.pi * .15,
