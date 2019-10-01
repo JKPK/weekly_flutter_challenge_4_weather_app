@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weekly_flutter_challenge_4_weather_app/widgets/day_summary.dart';
+import 'package:weekly_flutter_challenge_4_weather_app/widgets/temperature_summary.dart';
 import 'package:weekly_flutter_challenge_4_weather_app/widgets/top_bar.dart';
 
 import '../widgets/background.dart';
@@ -14,6 +16,8 @@ class MainPage extends StatelessWidget {
         children: <Widget>[
           Background(),
           TopBar(),
+          DaySummary(),
+          TemperatureSummary(),
           NotificationButton(),
         ],
       ),
