@@ -45,11 +45,19 @@ class WeekTable extends StatelessWidget {
                 Divider(
                   color: Colors.black,
                 ),
-                DayRow("Monday", Weather.sunny, 20, 10),
-                DayRow("Tuesday", Weather.partly_cloudy, 20, 11),
-                DayRow("Wednesday", Weather.sunny, 22, 12),
-                DayRow("Thursday", Weather.sunny, 21, 10),
-                DayRow("Friday", Weather.partly_cloudy, 20, 11)
+                GestureDetector(
+                  onHorizontalDragUpdate: (DragUpdateDetails detais) {
+                  },
+                  child: Column(
+                    children: <Widget>[
+                      DayRow("Monday", Weather.sunny, 20, 10),
+                      DayRow("Tuesday", Weather.partly_cloudy, 20, 11),
+                      DayRow("Wednesday", Weather.sunny, 22, 12),
+                      DayRow("Thursday", Weather.sunny, 21, 10),
+                      DayRow("Friday", Weather.partly_cloudy, 20, 11)
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
