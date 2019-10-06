@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/CityTransitionProvider.dart';
+import '../providers/reminder_provider.dart';
+import '../providers/city_transition_provider.dart';
 import '../widgets/background.dart';
 import '../widgets/notification_button.dart';
 import '../widgets/day_summary.dart';
@@ -16,8 +17,12 @@ class MainPage extends StatelessWidget {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
-      body: ChangeNotifierProvider(
-        builder: (context) => CityTransitionProvider(2),
+      body: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+              builder: (context) => CityTransitionProvider(2)),
+          ChangeNotifierProvider(builder: (context) => ReminderProvider()),
+        ],
         child: Stack(
           children: <Widget>[
             Background(),

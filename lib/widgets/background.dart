@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../styleguide.dart';
-import '../providers/CityTransitionProvider.dart';
+import '../providers/city_transition_provider.dart';
 
 class Background extends StatelessWidget {
   @override

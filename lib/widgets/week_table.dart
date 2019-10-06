@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../styleguide.dart';
-import '../providers/CityTransitionProvider.dart';
+import '../providers/reminder_provider.dart';
+import '../providers/city_transition_provider.dart';
 
 class WeekTable extends StatelessWidget {
   @override
@@ -81,9 +82,16 @@ class WeekTable extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          top: MediaQuery.of(context).size.height / 2 * 1.15 + 78,
-          left: 35,
+        Consumer<ReminderProvider>(
+          builder: (context, notifier, child) {
+            return AnimatedPositioned(
+                duration: const Duration(milliseconds: 150),
+                top: MediaQuery.of(context).size.height / 2 * 1.15 +
+                    78 +
+                    notifier.currentDay * 55,
+                left: 35,
+                child: child);
+          },
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
             width: MediaQuery.of(context).size.width * .025,
@@ -133,16 +141,15 @@ class TableCity extends StatelessWidget {
       },
       child: Column(
         children: <Widget>[
-          DayRow("Monday", city < 1 ? Weather.sunny : Weather.cloudy,
+          DayRow(0, city < 1 ? Weather.sunny : Weather.cloudy,
               city < 1 ? 20 : 12, city < 1 ? 10 : 9),
-          DayRow("Tuesday", city < 1 ? Weather.partly_cloudy : Weather.rainy,
+          DayRow(1, city < 1 ? Weather.partly_cloudy : Weather.rainy,
               city < 1 ? 20 : 11, city < 1 ? 11 : 4),
-          DayRow("Wednesday", Weather.sunny, city < 1 ? 22 : 12,
-              city < 1 ? 12 : 7),
-          DayRow("Thursday", city < 1 ? Weather.sunny : Weather.rainy,
-              city < 1 ? 21 : 9, city < 1 ? 10 : 4),
-          DayRow("Friday", Weather.partly_cloudy, city < 1 ? 20 : 11,
-              city < 1 ? 11 : 9)
+          DayRow(2, Weather.sunny, city < 1 ? 22 : 12, city < 1 ? 12 : 7),
+          DayRow(3, city < 1 ? Weather.sunny : Weather.rainy, city < 1 ? 21 : 9,
+              city < 1 ? 10 : 4),
+          DayRow(
+              4, Weather.partly_cloudy, city < 1 ? 20 : 11, city < 1 ? 11 : 9)
         ],
       ),
     );
@@ -150,10 +157,11 @@ class TableCity extends StatelessWidget {
 }
 
 class DayRow extends StatelessWidget {
-  final String day;
+  final int day;
   final Weather weather;
   final int maxTemperature;
   final int minTemperature;
+  final List days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
   DayRow(
     this.day,
@@ -188,10 +196,15 @@ class DayRow extends StatelessWidget {
             width: MediaQuery.of(context).size.width * .1,
           ),
           Expanded(
-            child: Container(
-              child: Text(
-                "$day",
-                style: weekTableTextStyle,
+            child: GestureDetector(
+              onTap: () {
+                Provider.of<ReminderProvider>(context).day = day;
+              },
+              child: Container(
+                child: Text(
+                  "${days[day]}",
+                  style: weekTableTextStyle,
+                ),
               ),
             ),
           ),
