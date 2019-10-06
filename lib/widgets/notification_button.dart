@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import '../styleguide.dart';
 
 class NotificationButton extends StatelessWidget {
-  const NotificationButton({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Positioned(

@@ -46,7 +46,7 @@ class DayCity extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Text(
-              city > 0 ? "Cairo" : "Paris",
+              city <1 ? "Cairo" : "Paris",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 40,
@@ -54,7 +54,7 @@ class DayCity extends StatelessWidget {
             ),
             SizedBox(height: 15),
             Text(
-              city > 0 ? "Sunny, Sunday" : "Rainy, Sunday",
+              city <1 ? "Sunny, Sunday" : "Rainy, Sunday",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 23,
@@ -62,7 +62,7 @@ class DayCity extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              city > 0 ? " 16°" : " 11°",
+              city <1 ? " 16°" : " 11°",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 90,

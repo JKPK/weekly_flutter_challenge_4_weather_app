@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../styleguide.dart';
-
 import '../providers/CityTransitionProvider.dart';
 
 class WeekTable extends StatelessWidget {
@@ -29,7 +27,7 @@ class WeekTable extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Color(0xFFE8E8E8),
+                        color: buttonColor,
                       ),
                       child: Text(
                         "0 reminders",
@@ -103,7 +101,9 @@ class WeekTable extends StatelessWidget {
 
 class TableCity extends StatelessWidget {
   final int city;
+
   TableCity(this.city);
+
   @override
   Widget build(BuildContext context) {
     return Consumer<CityTransitionProvider>(
@@ -133,16 +133,16 @@ class TableCity extends StatelessWidget {
       },
       child: Column(
         children: <Widget>[
-          DayRow("Monday", city > 0 ? Weather.sunny : Weather.cloudy,
-              city > 0 ? 20 : 12, city > 0 ? 10 : 9),
-          DayRow("Tuesday", city > 0 ? Weather.partly_cloudy : Weather.rainy,
-              city > 0 ? 20 : 11, city > 0 ? 11 : 4),
-          DayRow("Wednesday", Weather.sunny, city > 0 ? 22 : 12,
-              city > 0 ? 12 : 7),
-          DayRow("Thursday", city > 0 ? Weather.sunny : Weather.rainy,
-              city > 0 ? 21 : 9, city > 0 ? 10 : 4),
-          DayRow("Friday", Weather.partly_cloudy, city > 0 ? 20 : 11,
-              city > 0 ? 11 : 9)
+          DayRow("Monday", city < 1 ? Weather.sunny : Weather.cloudy,
+              city < 1 ? 20 : 12, city < 1 ? 10 : 9),
+          DayRow("Tuesday", city < 1 ? Weather.partly_cloudy : Weather.rainy,
+              city < 1 ? 20 : 11, city < 1 ? 11 : 4),
+          DayRow("Wednesday", Weather.sunny, city < 1 ? 22 : 12,
+              city < 1 ? 12 : 7),
+          DayRow("Thursday", city < 1 ? Weather.sunny : Weather.rainy,
+              city < 1 ? 21 : 9, city < 1 ? 10 : 4),
+          DayRow("Friday", Weather.partly_cloudy, city < 1 ? 20 : 11,
+              city < 1 ? 11 : 9)
         ],
       ),
     );

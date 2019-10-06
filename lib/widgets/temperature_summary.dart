@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weekly_flutter_challenge_4_weather_app/providers/CityTransitionProvider.dart';
+
+import '../providers/CityTransitionProvider.dart';
 
 class TemperatureSummary extends StatelessWidget {
   @override
