@@ -31,7 +31,7 @@ class Background extends StatelessWidget {
           child: ClipPath(
             clipper: BackgroundClipper(),
             child: Container(
-              height: MediaQuery.of(context).size.height * .57,
+              height: MediaQuery.of(context).size.height * .60,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 color: Color(0xFFFAFAFA),

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import '../styleguide.dart';
+
+import '../providers/CityTransitionProvider.dart';
 
 class WeekTable extends StatelessWidget {
   @override
@@ -8,7 +12,7 @@ class WeekTable extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Positioned(
-          top: MediaQuery.of(context).size.height/2*1.15,
+          top: MediaQuery.of(context).size.height / 2 * 1.15,
           left: 0,
           width: MediaQuery.of(context).size.width,
           child: Padding(
@@ -46,16 +50,33 @@ class WeekTable extends StatelessWidget {
                   color: Colors.black,
                 ),
                 GestureDetector(
-                  onHorizontalDragUpdate: (DragUpdateDetails detais) {
+                  onHorizontalDragUpdate: (DragUpdateDetails details) {
+                    Provider.of<CityTransitionProvider>(context, listen: false)
+                        .addTransitionProgress(details.delta.dx /
+                            (MediaQuery.of(context).size.width * .5));
                   },
-                  child: Column(
-                    children: <Widget>[
-                      DayRow("Monday", Weather.sunny, 20, 10),
-                      DayRow("Tuesday", Weather.partly_cloudy, 20, 11),
-                      DayRow("Wednesday", Weather.sunny, 22, 12),
-                      DayRow("Thursday", Weather.sunny, 21, 10),
-                      DayRow("Friday", Weather.partly_cloudy, 20, 11)
-                    ],
+                  onHorizontalDragEnd: (x) {
+                    Provider.of<CityTransitionProvider>(context, listen: false)
+                        .endTransition();
+                  },
+                  onHorizontalDragCancel: () {
+                    Provider.of<CityTransitionProvider>(context, listen: false)
+                        .endTransition();
+                  },
+                  onHorizontalDragStart: (x) {
+                    Provider.of<CityTransitionProvider>(context, listen: false)
+                        .endTransition();
+                  },
+                  child: Container(
+                    height: 300,
+                    width: MediaQuery.of(context).size.width - 40,
+                    color: backgroundColor,
+                    child: Stack(
+                      children: <Widget>[
+                        TableCity(0),
+                        TableCity(1),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -63,7 +84,7 @@ class WeekTable extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: MediaQuery.of(context).size.height/2*1.15+78,
+          top: MediaQuery.of(context).size.height / 2 * 1.15 + 78,
           left: 35,
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
@@ -76,6 +97,54 @@ class WeekTable extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class TableCity extends StatelessWidget {
+  final int city;
+  TableCity(this.city);
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<CityTransitionProvider>(
+      builder: (context, notifier, child) {
+        int start = 0;
+        if (city < notifier.city) {
+          start = 20;
+        } else if (city > notifier.city) {
+          start = -20;
+        }
+        return Positioned(
+          top: 0,
+          left: city == notifier.city
+              ? (20 * notifier.transitionProgress)
+              : (start + 20 * notifier.transitionProgress),
+          child: Opacity(
+            opacity: city == notifier.city
+                ? (1 - notifier.transitionProgress.abs())
+                : notifier.transitionProgress.abs(),
+            child: Container(
+              height: 300,
+              width: MediaQuery.of(context).size.width * .85,
+              child: child,
+            ),
+          ),
+        );
+      },
+      child: Column(
+        children: <Widget>[
+          DayRow("Monday", city > 0 ? Weather.sunny : Weather.cloudy,
+              city > 0 ? 20 : 12, city > 0 ? 10 : 9),
+          DayRow("Tuesday", city > 0 ? Weather.partly_cloudy : Weather.rainy,
+              city > 0 ? 20 : 11, city > 0 ? 11 : 4),
+          DayRow("Wednesday", Weather.sunny, city > 0 ? 22 : 12,
+              city > 0 ? 12 : 7),
+          DayRow("Thursday", city > 0 ? Weather.sunny : Weather.rainy,
+              city > 0 ? 21 : 9, city > 0 ? 10 : 4),
+          DayRow("Friday", Weather.partly_cloudy, city > 0 ? 20 : 11,
+              city > 0 ? 11 : 9)
+        ],
+      ),
     );
   }
 }
