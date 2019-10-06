@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/CityTransitionProvider.dart';
 
 class TopBar extends StatelessWidget {
   @override
@@ -21,26 +24,8 @@ class TopBar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 5),
-                width: MediaQuery.of(context).size.width * .025,
-                height: MediaQuery.of(context).size.width * .025,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                  border: Border.all(color: Colors.white, width: 1),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 5),
-                width: MediaQuery.of(context).size.width * .03,
-                height: MediaQuery.of(context).size.width * .03,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.transparent,
-                  border: Border.all(color: Colors.white, width: 1),
-                ),
-              ),
+              Dot(0),
+              Dot(1),
             ],
           ),
         ),
@@ -54,6 +39,43 @@ class TopBar extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class Dot extends StatelessWidget {
+  final int city;
+
+  Dot(this.city);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<CityTransitionProvider>(
+      builder: (context, notifier, child) {
+        double sizeAddition = city == notifier.city
+            ? (MediaQuery.of(context).size.width *
+                .005 *
+                notifier.transitionProgress.abs())
+            : (MediaQuery.of(context).size.width * .005 -
+                MediaQuery.of(context).size.width *
+                    .005 *
+                    notifier.transitionProgress.abs());
+
+        double opacity = city == notifier.city
+            ? (1 - notifier.transitionProgress.abs())
+            : notifier.transitionProgress.abs();
+
+        return Container(
+          margin: EdgeInsets.symmetric(horizontal: 5),
+          width: MediaQuery.of(context).size.width * .025 + sizeAddition,
+          height: MediaQuery.of(context).size.width * .025 + sizeAddition,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white.withOpacity(opacity),
+            border: Border.all(color: Colors.white, width: 1),
+          ),
+        );
+      },
     );
   }
 }
