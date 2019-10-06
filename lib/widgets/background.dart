@@ -27,7 +27,7 @@ class Background extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 0,
+          top: MediaQuery.of(context).size.height/2*.85,
           child: ClipPath(
             clipper: BackgroundClipper(),
             child: Container(

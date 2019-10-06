@@ -8,7 +8,7 @@ class WeekTable extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Positioned(
-          bottom: 20,
+          top: MediaQuery.of(context).size.height/2*1.15,
           left: 0,
           width: MediaQuery.of(context).size.width,
           child: Padding(
@@ -63,7 +63,7 @@ class WeekTable extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 262,
+          top: MediaQuery.of(context).size.height/2*1.15+78,
           left: 35,
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
