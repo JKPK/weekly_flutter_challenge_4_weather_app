@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../styleguide.dart';
 import '../providers/reminder_provider.dart';
+import '../providers/city_transition_provider.dart';
 import '../widgets/reminder_dialog.dart';
 
 class NotificationButton extends StatefulWidget {
@@ -26,6 +27,8 @@ class _NotificationButtonState extends State<NotificationButton> {
   Widget build(BuildContext context) {
     List<String> reminders =
         Provider.of<ReminderProvider>(context, listen: false).reminders;
+    int city = Provider.of<CityTransitionProvider>(context).city;
+    int currentDay = Provider.of<ReminderProvider>(context).currentDay;
 
     return Positioned(
       left: MediaQuery.of(context).size.width * .1,
@@ -42,6 +45,8 @@ class _NotificationButtonState extends State<NotificationButton> {
               builder: (BuildContext context) {
                 return ReminderDialog(
                   reminders,
+                  city,
+                  currentDay,
                   addReminder,
                   setReminder,
                 );

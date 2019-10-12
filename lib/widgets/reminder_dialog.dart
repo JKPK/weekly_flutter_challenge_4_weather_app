@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 import '../styleguide.dart';
-import '../providers/reminder_provider.dart';
 
 class ReminderDialog extends StatefulWidget {
   final List<String> reminders;
+  final int city;
+  final int currentDay;
   final Function addReminder;
   final Function setReminder;
 
   @override
   ReminderDialog(
     this.reminders,
+    this.city,
+    this.currentDay,
     this.addReminder,
     this.setReminder,
   );
@@ -26,16 +28,16 @@ class _ReminderDialogState extends State<ReminderDialog> {
   int currentReminder;
   TextEditingController _newReminderController = TextEditingController();
   FocusNode _focusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
-
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     _focusNode.addListener(_onFocusChange);
   }
 
   void _onFocusChange() {
     if (_focusNode.hasFocus) {
+      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
       _changeSelectedReminder(widget.reminders.length);
     }
   }
@@ -102,7 +104,7 @@ class _ReminderDialogState extends State<ReminderDialog> {
             child: Row(
               children: <Widget>[
                 Text(
-                 DateFormat('EEEEE', 'en_US').format(new DateTime.now()),
+                  DateFormat('EEEEE', 'en_US').format(new DateTime.now()),
                   style: TextStyle(
                     fontSize: 30,
                     color: Colors.white,
@@ -110,7 +112,7 @@ class _ReminderDialogState extends State<ReminderDialog> {
                 ),
                 SizedBox(width: 10),
                 Text(
-                 DateFormat('d/M', 'en_US').format(new DateTime.now()),
+                  DateFormat('d/M', 'en_US').format(new DateTime.now()),
                   style: TextStyle(
                     fontSize: 23,
                     color: Colors.white,
@@ -119,7 +121,22 @@ class _ReminderDialogState extends State<ReminderDialog> {
                 Spacer(),
                 Image(
                   width: 30,
-                  image: AssetImage("assets/icons/rainy_white.png"),
+                  image: (widget.city == 0 &&
+                              (widget.currentDay == 0 ||
+                                  widget.currentDay == 2 ||
+                                  widget.currentDay == 3) ||
+                          (widget.city == 1 && widget.currentDay == 2))
+                      ? AssetImage("assets/icons/sunny_white.png")
+                      : (widget.city == 0 &&
+                                  (widget.currentDay == 1 ||
+                                      widget.currentDay == 4) ||
+                              (widget.city == 1 &&
+                                  (widget.currentDay == 0 ||
+                                      widget.currentDay == 4)))
+                          ? AssetImage("assets/icons/partly_cloudy_white.png")
+                          : (widget.city == 1 && widget.currentDay == 0)
+                              ? AssetImage("assets/icons/cloudy_white.png")
+                              : AssetImage("assets/icons/rainy_white.png"),
                 )
               ],
             ),
