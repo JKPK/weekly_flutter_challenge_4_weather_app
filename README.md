@@ -14,6 +14,8 @@ What I have learned during this challenge (in no particular order):
 4. Radio widget & TextField widget.
 5. Using SingleChildScrollView with ListBody.
 6. Using ConstrainedBox widget to limit the size of it's child.
+7. Using FocusNode to detect if TextField has focus.
+8. Usint intl package and DateFormat class.
 
 ## Original design
 [![Original design](https://github.com/JKPK/weekly_flutter_challenge_4_weather_app/blob/master/original_design.gif?raw=true)](https://www.uplabs.com/posts/weather-app-244f14ad-518c-4244-bc75-05015676171a)

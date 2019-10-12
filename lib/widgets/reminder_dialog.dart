@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../styleguide.dart';
+import '../providers/reminder_provider.dart';
 
 class ReminderDialog extends StatefulWidget {
   final List<String> reminders;
+  final Function addReminder;
+  final Function setReminder;
 
   @override
-  ReminderDialog(this.reminders);
+  ReminderDialog(
+    this.reminders,
+    this.addReminder,
+    this.setReminder,
+  );
 
   @override
   _ReminderDialogState createState() => _ReminderDialogState();
@@ -14,6 +24,27 @@ class ReminderDialog extends StatefulWidget {
 
 class _ReminderDialogState extends State<ReminderDialog> {
   int currentReminder;
+  TextEditingController _newReminderController = TextEditingController();
+  FocusNode _focusNode = FocusNode();
+  @override
+  void initState() {
+    super.initState();
+
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    _focusNode.addListener(_onFocusChange);
+  }
+
+  void _onFocusChange() {
+    if (_focusNode.hasFocus) {
+      _changeSelectedReminder(widget.reminders.length);
+    }
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +72,15 @@ class _ReminderDialogState extends State<ReminderDialog> {
               ),
             ),
             onPressed: () {
-              Navigator.of(context).pop();
+              if (currentReminder == widget.reminders.length &&
+                  _newReminderController.text.length > 0) {
+                widget.addReminder(_newReminderController.text);
+                Navigator.of(context).pop();
+              } else if (currentReminder >= 0 &&
+                  currentReminder < widget.reminders.length) {
+                widget.setReminder(currentReminder);
+                Navigator.of(context).pop();
+              }
             },
           ),
         ],
@@ -63,7 +102,7 @@ class _ReminderDialogState extends State<ReminderDialog> {
             child: Row(
               children: <Widget>[
                 Text(
-                  "Tuesday,",
+                 DateFormat('EEEEE', 'en_US').format(new DateTime.now()),
                   style: TextStyle(
                     fontSize: 30,
                     color: Colors.white,
@@ -71,7 +110,7 @@ class _ReminderDialogState extends State<ReminderDialog> {
                 ),
                 SizedBox(width: 10),
                 Text(
-                  "29/01",
+                 DateFormat('d/M', 'en_US').format(new DateTime.now()),
                   style: TextStyle(
                     fontSize: 23,
                     color: Colors.white,
@@ -125,6 +164,8 @@ class _ReminderDialogState extends State<ReminderDialog> {
                     children: <Widget>[
                       Expanded(
                         child: TextField(
+                          focusNode: _focusNode,
+                          controller: _newReminderController,
                           style: TextStyle(
                             fontSize: 20,
                           ),

@@ -7,8 +7,21 @@ import '../styleguide.dart';
 import '../providers/reminder_provider.dart';
 import '../widgets/reminder_dialog.dart';
 
+class NotificationButton extends StatefulWidget {
+  @override
+  _NotificationButtonState createState() => _NotificationButtonState();
+}
 
-class NotificationButton extends StatelessWidget {
+class _NotificationButtonState extends State<NotificationButton> {
+  void addReminder(reminderText) {
+    Provider.of<ReminderProvider>(context, listen: false)
+        .addReminder(reminderText);
+  }
+
+  void setReminder(reminderId) {
+    Provider.of<ReminderProvider>(context, listen: false).reminder = reminderId;
+  }
+
   @override
   Widget build(BuildContext context) {
     List<String> reminders =
@@ -27,7 +40,11 @@ class NotificationButton extends StatelessWidget {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return ReminderDialog(reminders);
+                return ReminderDialog(
+                  reminders,
+                  addReminder,
+                  setReminder,
+                );
               },
             );
           },
