@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:intl/intl.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 import '../styleguide.dart';
 
@@ -32,19 +34,30 @@ class _ReminderDialogState extends State<ReminderDialog> {
   @override
   void initState() {
     super.initState();
+
     _focusNode.addListener(_onFocusChange);
+
+    KeyboardVisibilityNotification().addNewListener(
+      onChange: (bool visible) {
+        if (visible) {
+          SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+        } else {
+          SystemChrome.setEnabledSystemUIOverlays([]);
+        }
+      },
+    );
   }
 
   void _onFocusChange() {
     if (_focusNode.hasFocus) {
-      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
       _changeSelectedReminder(widget.reminders.length);
     }
   }
 
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    _newReminderController.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -74,6 +87,7 @@ class _ReminderDialogState extends State<ReminderDialog> {
               ),
             ),
             onPressed: () {
+              if (currentReminder == null) return;
               if (currentReminder == widget.reminders.length &&
                   _newReminderController.text.length > 0) {
                 widget.addReminder(_newReminderController.text);
@@ -213,6 +227,5 @@ class _ReminderDialogState extends State<ReminderDialog> {
     setState(() {
       currentReminder = newReminder;
     });
-    print(currentReminder);
   }
 }

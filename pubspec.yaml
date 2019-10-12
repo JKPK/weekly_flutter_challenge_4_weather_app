@@ -12,6 +12,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   provider: ^3.1.0
   intl: ^0.16.0
+  keyboard_visibility: ^0.5.6
 
 dev_dependencies:
   flutter_test:

@@ -28,11 +28,30 @@ class WeekTable extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: buttonColor,
+                        color: Provider.of<ReminderProvider>(context)
+                                    .activeReminders
+                                    .length >
+                                0
+                            ? parisColor
+                            : buttonColor,
                       ),
                       child: Text(
-                        "${Provider.of<ReminderProvider>(context).activeReminders.length} "+(Provider.of<ReminderProvider>(context).activeReminders.length==1?"reminder":"reminders"),
-                        style: TextStyle(fontSize: 15),
+                        "${Provider.of<ReminderProvider>(context).activeReminders.length} " +
+                            (Provider.of<ReminderProvider>(context)
+                                        .activeReminders
+                                        .length ==
+                                    1
+                                ? "reminder"
+                                : "reminders"),
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Provider.of<ReminderProvider>(context)
+                                      .activeReminders
+                                      .length >
+                                  0
+                              ? Colors.white
+                              : Colors.black,
+                        ),
                       ),
                     ),
                     Expanded(child: Container()),
