@@ -23,4 +23,4 @@ What I have learned during this challenge (in no particular order):
 [![Original design](https://github.com/JKPK/weekly_flutter_challenge_4_weather_app/blob/master/original_design.gif?raw=true)](https://www.uplabs.com/posts/weather-app-244f14ad-518c-4244-bc75-05015676171a)
 
 ## Challenge result - click to see video
-[![Challenge result](https://github.com/JKPK/weekly_flutter_challenge_4_weather_app/blob/master/challenge_result.gif?raw=true)](https://www.youtube.com/watch?v=uxXa4lRMdCE)
+[![Challenge result](https://github.com/JKPK/weekly_flutter_challenge_4_weather_app/blob/master/challenge_result.gif?raw=true)](https://youtu.be/r9MXA-oj92A)
