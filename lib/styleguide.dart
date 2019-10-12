@@ -8,3 +8,6 @@ const buttonColor = Color(0xFFE8E8E8);
 const weekTableTextStyle = TextStyle(
   fontSize: 18,
 );
+const dialogTextStyle = TextStyle(
+  fontSize: 20,
+);

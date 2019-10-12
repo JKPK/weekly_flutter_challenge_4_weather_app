@@ -25,6 +25,10 @@ flutter:
    - assets/icons/partly_cloudy.png
    - assets/icons/rainy.png
    - assets/icons/sunny.png
+   - assets/icons/cloudy_white.png
+   - assets/icons/partly_cloudy_white.png
+   - assets/icons/rainy_white.png
+   - assets/icons/sunny_white.png
 
   fonts:
     - family: OpenSans
